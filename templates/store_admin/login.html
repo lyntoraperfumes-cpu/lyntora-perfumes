@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block title %}Admin Login — {{ store.store_name
+}}{% endblock %} {% block content %}
+<section class="admin-auth">
+  <div class="auth-card">
+    <span class="eyebrow">STORE ADMIN</span>
+    <h1>Admin access</h1>
+    <p>
+      Admin access is restricted to the authorized email below. Password is not
+      required.
+    </p>
+    <form method="post">
+      {% csrf_token %}<label
+        >Authorized admin email<input
+          type="email"
+          name="email"
+          value=""
+          placeholder="Enter admin email"
+          required /></label
+      >{% if form.errors %}
+      <div class="admin-alert">{{ form.errors }}</div>
+      {% endif %}<button class="btn full" type="submit">
+        SEND VERIFICATION CODE
+      </button>
+    </form>
+    <div class="helpline">
+      WhatsApp helpline: <b>{{ store.whatsapp_number }}</b>
+    </div>
+  </div>
+</section>
+{% endblock %}

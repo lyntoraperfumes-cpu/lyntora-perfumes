@@ -1,0 +1,11 @@
+Lyntora Perfumes - Logo Crop Update
+
+Admin: /store-admin/settings/
+1. Choose an image.
+2. Drag the image inside the fixed 3:1 rectangle.
+3. Adjust Zoom.
+4. Click USE CROPPED LOGO.
+5. Click SAVE CHANGES.
+
+The cropped logo is stored as a 900x300 PNG and displayed in a fixed rectangular
+150x50 header slot. No database migration is required for this update.

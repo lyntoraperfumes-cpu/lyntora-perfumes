@@ -1,0 +1,5 @@
+{% extends "store_admin/base_admin.html" %}
+{% block admin_content %}
+<div class="admin-title"><div><span>CATALOG</span><h1>Categories</h1></div><a class="btn" href="{% url 'admin_portal:admin_category_create' %}">+ ADD CATEGORY</a></div>
+<div class="table-wrap"><table><thead><tr><th>Name</th><th>Slug</th><th>Active</th><th>Products</th></tr></thead><tbody>{% for c in categories %}<tr><td>{{ c.name }}</td><td>{{ c.slug }}</td><td>{{ c.active }}</td><td>{{ c.products.count }}</td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

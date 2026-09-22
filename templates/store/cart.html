@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Cart — {{ store.store_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span>YOUR SELECTION</span><h1>Shopping Cart</h1></div></section>
+<section class="container cart-layout">
+  <div>
+    {% for item in items %}
+    <div class="cart-item">
+      <div class="cart-thumb">{% if item.product.image %}<img src="{{ item.product.image.url }}" alt="">{% else %}<div class="placeholder-bottle small"></div>{% endif %}</div>
+      <div class="cart-meta"><b>{{ item.product.name }}</b><span>{{ item.product.category.name }}</span><strong>₹{{ item.product.price }}</strong></div>
+      <form method="post" action="{% url  'customer:update_cart' item.id %}" class="qty">{% csrf_token %}<input type="number" min="1" name="quantity" value="{{ item.quantity }}"><button>Update</button></form>
+      <form method="post" action="{% url  'customer:remove_from_cart' item.id %}">{% csrf_token %}<button class="remove">×</button></form>
+    </div>
+    {% empty %}<div class="empty-card"><h2>Your cart is empty</h2><a class="btn" href="{% url  'customer:shop' %}">Continue Shopping</a></div>{% endfor %}
+  </div>
+  <aside class="summary"><h2>Cart Total</h2><div><span>Subtotal</span><b>₹{{ total|floatformat:2 }}</b></div><p>Final delivery details can be confirmed with the store through WhatsApp.</p><a class="btn full" href="{% url  'customer:checkout' %}">BUY / CHECKOUT</a></aside>
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — {{ store.store_name }}{% endblock %}
+{% block content %}
+<section class="container detail">
+  <div class="detail-image">{% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}">{% else %}<div class="placeholder-bottle large"><i></i></div>{% endif %}</div>
+  <div class="detail-copy">
+    <span class="eyebrow">{{ product.category.name }}</span><h1>{{ product.name }}</h1>
+    <div class="rating">★★★★★ {{ product.rating }}</div>
+    <div class="big-price">₹{{ product.price }} {% if product.compare_at_price %}<del>₹{{ product.compare_at_price }}</del>{% endif %}</div>
+    <p>{{ product.description|default:"A refined fragrance selected for the Lyntora collection." }}</p>
+    <p class="stock">{% if product.stock %}{{ product.stock }} available{% else %}Availability confirmed by store{% endif %}</p>
+    <form method="post" action="{% url  'customer:add_to_cart' product.id %}">{% csrf_token %}<button class="btn">ADD TO CART</button></form>
+    <a class="text-link" href="{% url  'customer:cart' %}">View cart →</a>
+  </div>
+</section>
+<section class="section container"><div class="section-title"><span>YOU MAY LIKE</span><h2>RELATED PRODUCTS</h2></div><div class="product-grid four">{% for p in related %}{% include "store/product_card.html" with product=p %}{% endfor %}</div></section>
+{% endblock %}

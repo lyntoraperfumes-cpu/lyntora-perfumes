@@ -1,0 +1,48 @@
+{% extends "store_admin/base_admin.html" %}
+{% block admin_content %}
+<div class="admin-title">
+  <div>
+    <span>HOMEPAGE</span>
+    <h1>Main Hero Image</h1>
+    <p>This controls the large perfume image shown in the main hero section of the customer website.</p>
+  </div>
+  <a class="text-link" href="{% url 'customer:home' %}">View Customer Store ↗</a>
+</div>
+
+<div class="admin-grid">
+  <div class="admin-panel">
+    <h2>Current Hero Image</h2>
+    {% if hero and hero.image %}
+      <div style="background:#f4f1ec;padding:20px;text-align:center;margin-bottom:18px;">
+        <img src="{{ hero.image.url }}" alt="{{ hero.alt_text|default:hero.title }}" style="max-width:100%;max-height:420px;object-fit:contain;display:inline-block;">
+      </div>
+      <p><b>Status:</b> {% if hero.active %}Visible{% else %}Hidden{% endif %}</p>
+    {% else %}
+      <div style="background:#f4f1ec;padding:50px;text-align:center;margin-bottom:18px;">
+        <p>No custom hero image is uploaded.</p>
+        <p>The default Lyntora bottle is currently shown.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="admin-panel">
+    <h2>{% if hero %}Replace{% else %}Upload{% endif %} Hero Image</h2>
+    <form method="post" enctype="multipart/form-data" class="admin-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn" type="submit">{% if hero %}REPLACE IMAGE{% else %}UPLOAD IMAGE{% endif %}</button>
+    </form>
+    {% if hero %}
+      <form method="post" action="{% url 'admin_portal:admin_hero_remove' %}" style="margin-top:12px;">
+        {% csrf_token %}
+        <button class="danger-link" type="submit" onclick="return confirm('Remove the custom hero image?')">REMOVE CUSTOM IMAGE</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+
+<div class="admin-panel" style="margin-top:24px;">
+  <h2>How it works</h2>
+  <p>Upload your perfume/product photo here and save it. The customer homepage will use this image instead of the built-in blue Lyntora bottle. You can replace it or remove it at any time.</p>
+</div>
+{% endblock %}

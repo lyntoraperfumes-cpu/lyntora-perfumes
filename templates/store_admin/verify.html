@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Admin Verification — {{ store.store_name }}{% endblock %}
+{% block content %}
+<section class="admin-auth"><div class="auth-card"><span class="eyebrow">EMAIL VERIFIED ACCESS</span><h1>Enter admin code</h1><p>Code sent to <b>{{ email }}</b>.</p>
+<form method="post">{% csrf_token %}{{ form.as_p }}<button class="btn full">OPEN DASHBOARD</button></form></div></section>
+{% endblock %}

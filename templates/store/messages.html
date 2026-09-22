@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}Contact — {{ store.store_name }}{% endblock %}
+{% block content %}<section class="page-head"><div class="container"><span>LYNTORA SUPPORT</span><h1>Your messages</h1><p>Messages you have sent to the store.</p></div></section><section class="container message-layout"><div class="thread">{% for msg in messages_list %}<article class="message"><small>{{ msg.created_at }}</small><b>{{ msg.name }}</b><p>{{ msg.message }}</p></article>{% empty %}<p>No messages yet.</p>{% endfor %}</div></section>{% endblock %}

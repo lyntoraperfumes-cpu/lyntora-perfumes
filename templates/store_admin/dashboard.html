@@ -1,0 +1,17 @@
+{% extends "store_admin/base_admin.html" %}
+{% block admin_content %}
+<div class="admin-title"><div><span>OVERVIEW</span><h1>Welcome back, Admin</h1></div><a class="btn" href="{% url 'admin_portal:admin_product_create' %}">+ ADD PRODUCT</a></div>
+<div class="stats"><div><b>{{ products_count }}</b><span>Products</span></div><div><b>{{ customers_count }}</b><span>Customers</span></div><div><b>{{ orders_count }}</b><span>Orders</span></div><div><b>{{ cart_count }}</b><span>Active Carts</span></div><div><b>{{ photos_count }}</b><span>Website Photos</span></div><div><b>{{ unread_messages }}</b><span>Unread Messages</span></div></div>
+<div class="admin-grid">
+  <div class="admin-panel"><h2>Recent Orders</h2>{% for o in recent_orders %}<div class="admin-row"><span>#{{ o.id }} · {{ o.name }}<small>{{ o.created_at }}</small></span><b>₹{{ o.total }}</b></div>{% empty %}<p>No orders yet.</p>{% endfor %}</div>
+  <div class="admin-panel"><h2>Customer Messages</h2>{% for m in recent_messages %}<div class="admin-row"><span>{{ m.name }}<small>{{ m.message|truncatechars:60 }}</small></span><a href="{% url 'admin_portal:admin_messages' %}">View</a></div>{% empty %}<p>No messages yet.</p>{% endfor %}</div>
+</div>
+<div class="admin-panel helpline-panel"><h2>WhatsApp Helpline</h2><p>Use WhatsApp to communicate directly with customers or answer order questions.</p><a class="btn whatsapp" target="_blank" href="https://wa.me/{{ store.whatsapp_number }}">OPEN WHATSAPP · {{ store.whatsapp_number }}</a></div>
+{% if announcements %}<div class="admin-panel"><h2>Admin-side messages</h2>{% for a in announcements %}<div class="notice"><b>{{ a.title }}</b><p>{{ a.body }}</p></div>{% endfor %}</div>{% endif %}
+{% endblock %}
+
+<div class="admin-panel">
+  <h2>Main Homepage Image</h2>
+  <p>Change the large perfume image shown in the hero section of the customer homepage.</p>
+  <a class="btn" href="{% url 'admin_portal:admin_hero' %}">CHANGE HERO IMAGE</a>
+</div>

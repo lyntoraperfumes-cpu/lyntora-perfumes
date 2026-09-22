@@ -1,0 +1,5 @@
+{% extends "store_admin/base_admin.html" %}
+{% block admin_content %}
+<div class="admin-title"><div><span>SALES</span><h1>Orders</h1></div></div>
+{% for o in orders %}<div class="admin-panel order-admin"><div class="admin-row"><span><b>#{{ o.id }} · {{ o.name }}</b><small>{{ o.email }} · {{ o.phone }} · {{ o.created_at }}</small></span><b>₹{{ o.total }}</b></div>{% for i in o.items.all %}<div class="cart-admin-item">{{ i.product_name }} × {{ i.quantity }} — ₹{{ i.line_total }}</div>{% endfor %}<form method="post" action="{% url 'admin_portal:admin_order_status' o.id %}" class="status-form">{% csrf_token %}<select name="status">{% for value,label in o.STATUS_CHOICES %}<option value="{{ value }}" {% if o.status == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select><button>Update status</button>{% if o.whatsapp_sent %}<span>WhatsApp handoff created</span>{% endif %}</form></div>{% empty %}<p>No orders yet.</p>{% endfor %}
+{% endblock %}

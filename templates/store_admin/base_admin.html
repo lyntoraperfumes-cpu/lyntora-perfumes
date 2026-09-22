@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}{{ store.store_name }} — Admin{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/store.css' %}">
+</head>
+<body style="--primary: {{ store.primary_color }}; --accent: {{ store.accent_color }}; --gold: {{ store.gold_color }};">
+<div class="admin-shell">
+  <aside class="admin-side">
+    <div class="admin-logo">{{ store.store_name }} <small>ADMIN</small></div>
+    <a href="{% url 'admin_portal:admin_dashboard' %}">Dashboard</a>
+    <a href="{% url 'admin_portal:admin_products' %}">Products</a>
+    <a href="{% url 'admin_portal:admin_categories' %}">Categories</a>
+    <a href="{% url 'admin_portal:admin_orders' %}">Orders</a>
+    <a href="{% url 'admin_portal:admin_carts' %}">Customer Carts</a>
+    <a href="{% url 'admin_portal:admin_messages' %}">Customer Messages</a>
+    <a href="{% url 'admin_portal:admin_hero' %}">Hero Section</a>
+    <a href="{% url 'admin_portal:admin_photos' %}">Website Photos</a>
+    <a href="{% url 'admin_portal:admin_announcements' %}">Announcements</a>
+    <a href="{% url 'admin_portal:admin_settings' %}">Store Settings</a>
+    <a href="{% url 'admin_portal:admin_logout' %}">Logout</a>
+  </aside>
+  <section class="admin-content">
+    <div class="admin-top"><span>Store control center</span><a href="{% url 'customer:home' %}">View Customer Store ↗</a></div>
+    {% if messages %}{% for message in messages %}<div class="admin-alert">{{ message }}</div>{% endfor %}{% endif %}
+    {% block admin_content %}{% endblock %}
+  </section>
+</div>
+</body>
+</html>

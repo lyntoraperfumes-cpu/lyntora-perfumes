@@ -1,0 +1,122 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{% block title %}{{ store.store_name }}{% endblock %}</title>
+    <meta name="description" content="{{ store.tagline }}" />
+    <link rel="stylesheet" href="{% static 'css/store.css' %}" />
+  </head>
+  <body
+    style="--primary: {{ store.primary_color }}; --accent: {{ store.accent_color }}; --gold: {{ store.gold_color }};"
+  >
+    <header class="site-header">
+      <div class="topbar">
+        Welcome to {{ store.store_name }}
+        <span>Elegant fragrances • Kerala</span>
+      </div>
+      <div class="header-main container">
+        <button
+          class="menu-toggle"
+          onclick="toggleNav()"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+        <!-- Recommended brand-logo placement: top-left of the customer header. Upload "ac Studio Logo.png" in Store Admin → Store Settings. -->
+        <a class="brand" href="{% url 'customer:home' %}">
+          {% if store.logo %}
+          <img src="{{ store.logo.url }}" alt="{{ store.store_name }}" />
+          {% else %}
+          <span class="brand-mark">L</span>
+          <span><b>{{ store.store_name }}</b><small>PERFUMES</small></span>
+          {% endif %}
+        </a>
+        <form class="search" action="{% url 'customer:shop' %}">
+          <input
+            name="q"
+            value="{{ request.GET.q }}"
+            placeholder="Search here..."
+          />
+          <button>⌕</button>
+        </form>
+        <nav class="desktop-actions">
+          <a href="{% url 'customer:cart' %}" aria-label="Cart"
+            >🛒 <span class="badge">{{ cart_count }}</span></a
+          >
+          {% if request.session.customer_id %}
+          <a href="{% url 'customer:messages' %}">💬</a>
+          <a href="{% url 'customer:logout' %}">Sign out</a>
+          {% else %}
+          <a href="{% url 'customer:login' %}">Sign in</a>
+          {% endif %}
+        </nav>
+      </div>
+      <nav id="mainNav" class="nav container">
+        <a href="{% url 'customer:shop' %}">ALL PRODUCTS</a>
+        <a href="{% url 'customer:home' %}">HOME</a>
+        <a href="{% url 'customer:shop' %}?sort=new">NEW ARRIVALS</a>
+        <a href="{% url 'customer:shop' %}?sort=rating">TOP RATED</a>
+        {% for c in nav_categories|slice:":5" %}<a
+          href="{% url 'customer:category' c.slug %}"
+          >{{ c.name }}</a
+        >{% endfor %}
+        <a href="{% url 'customer:messages' %}">CONTACT</a>
+      </nav>
+    </header>
+
+    {% if messages %}
+    <div class="toast-wrap">
+      {% for message in messages %}
+      <div class="toast {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <button class="chat-fab" onclick="toggleChat()">✦</button>
+    <div id="chatbox" class="chatbox">
+      <div class="chat-head">
+        Lyntora Assistant <button onclick="toggleChat()">×</button>
+      </div>
+      <div id="chatlog" class="chatlog">
+        <div class="bot">
+          Hello! How can I help you?
+          You can ask your questions in English or Malayalam.</div>
+      </div>
+      <form id="chatform" class="chat-form">
+        {% csrf_token %}<input
+          id="chatinput"
+          placeholder="Type in English / Malayalam..."
+        /><button>Send</button>
+      </form>
+    </div>
+
+    <footer>
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-logo">{{ store.store_name }}</div>
+          <p>{{ store.tagline }}</p>
+        </div>
+        <div>
+          <b>Quick Menu</b><a href="{% url 'customer:shop' %}">New Arrivals</a
+          ><a href="{% url 'customer:shop' %}?sort=rating">Top Rated</a
+          ><a href="{% url 'customer:cart' %}">Cart</a>
+        </div>
+        <div>
+          <b>Information</b
+          ><a href="{% url 'customer:messages' %}">Talk to us</a
+          ><a href="https://wa.me/{{ store.whatsapp_number }}">WhatsApp</a
+          ><a href="mailto:{{ store.support_email }}">Email</a>
+        </div>
+      </div>
+      <div class="copyright">
+        © {% now "Y" %} {{ store.store_name }}. All rights reserved.
+      </div>
+    </footer>
+
+    <script src="{% static 'js/store.js' %}"></script>
+  </body>
+</html>

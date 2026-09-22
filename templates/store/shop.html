@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Shop — {{ store.store_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span>LYNTORA PERFUMES</span><h1>Shop All Fragrances</h1><p>Discover your next signature scent.</p></div></section>
+<section class="container shop-layout">
+  <aside class="filters">
+    <b>Categories</b>
+    <a class="{% if not active_category %}active{% endif %}" href="{% url  'customer:shop' %}">All</a>
+    {% for c in categories %}<a class="{% if active_category == c.slug %}active{% endif %}" href="{% url  'customer:category' c.slug %}">{{ c.name }}</a>{% endfor %}
+  </aside>
+  <div>
+    <div class="shop-toolbar"><span>{{ products|length }} products</span><form><input type="hidden" name="q" value="{{ query }}"><select name="sort" onchange="this.form.submit()"><option value="recommended" {% if sort == "recommended" %}selected{% endif %}>Recommended</option><option value="new" {% if sort == "new" %}selected{% endif %}>New Arrivals</option><option value="rating" {% if sort == "rating" %}selected{% endif %}>Top Rated</option><option value="price_low" {% if sort == "price_low" %}selected{% endif %}>Price: Low to High</option><option value="price_high" {% if sort == "price_high" %}selected{% endif %}>Price: High to Low</option></select></form></div>
+    <div class="product-grid three">
+      {% for product in products %}{% include "store/product_card.html" with product=product %}{% empty %}<div class="empty">No products found.</div>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends "store_admin/base_admin.html" %}
+{% block admin_content %}
+<div class="admin-title"><div><span>CUSTOMER DATA</span><h1>Active Carts</h1></div></div>
+{% for cart in carts %}<div class="admin-panel"><div class="admin-row"><span><b>{% if cart.customer %}{{ cart.customer.email }}{% else %}Guest visitor{% endif %}</b><small>Updated {{ cart.updated_at }}</small></span><b>₹{% widthratio 1 1 1 %}{% for item in cart.items.all %}{% endfor %}</b></div>{% for item in cart.items.all %}<div class="cart-admin-item">{{ item.product.name }} × {{ item.quantity }} — ₹{{ item.line_total }}</div>{% empty %}<p>Empty cart.</p>{% endfor %}</div>{% endfor %}
+{% endblock %}

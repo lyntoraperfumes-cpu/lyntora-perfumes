@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Checkout — {{ store.store_name }}{% endblock %}
+{% block content %}
+<section class="page-head"><div class="container"><span>SECURE CHECKOUT</span><h1>Complete Your Order</h1><p>You are signed in with {{ request.customer.email }}.</p></div></section>
+<section class="container checkout-layout">
+  <form method="post" class="form-card">{% csrf_token %}<h2>Customer details</h2>{{ form.as_p }}<button class="btn">CONTINUE TO WHATSAPP</button></form>
+  <aside class="summary"><h2>Your items</h2>{% for item in items %}<div><span>{{ item.product.name }} × {{ item.quantity }}</span><b>₹{{ item.line_total|floatformat:2 }}</b></div>{% endfor %}<hr><div><span>Total</span><b>₹{{ total|floatformat:2 }}</b></div></aside>
+</section>
+{% endblock %}

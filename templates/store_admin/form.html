@@ -1,0 +1,5 @@
+{% extends "store_admin/base_admin.html" %}
+{% block admin_content %}
+<div class="admin-title"><div><span>EDITOR</span><h1>{{ title }}</h1></div><a class="text-link" href="{% url back_url %}">← Back</a></div>
+<form method="post" enctype="multipart/form-data" class="admin-form">{% csrf_token %}{{ form.as_p }}<button class="btn">SAVE CHANGES</button></form>
+{% endblock %}

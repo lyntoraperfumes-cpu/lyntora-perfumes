@@ -1,0 +1,6 @@
+{% extends "store_admin/base_admin.html" %}
+{% block admin_content %}
+<div class="admin-title"><div><span>NOTIFICATIONS</span><h1>Admin / Store Messages</h1></div></div>
+<form method="post" class="admin-form">{% csrf_token %}{{ form.as_p }}<button class="btn">ADD MESSAGE</button></form>
+<div class="admin-panel"><h2>Existing messages</h2>{% for a in announcements %}<div class="notice"><b>{{ a.title }}</b><p>{{ a.body }}</p><small>Active: {{ a.active }}</small></div>{% endfor %}</div>
+{% endblock %}
