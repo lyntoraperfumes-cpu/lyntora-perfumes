@@ -65,7 +65,7 @@ Product and logo images are stored under `media/`. In production, configure pers
 
 The application generates a pre-filled WhatsApp message addressed to:
 
-`8089500239`
+`8592967239`
 
 No WhatsApp API credential is required for this implementation. The customer's browser opens WhatsApp with the order text already populated.
 
@@ -123,14 +123,16 @@ lyntora_perfumes/
     └── store_admin/
 ```
 
-
 ## Website photo management
+
 Use **Store Admin → Website Photos** to add, edit, hide, reorder, or delete images for Hero, Promo, Collection, Latest News, Instagram Feed, and Custom placements. The home page reads these records directly from the database on each request, so changes are reflected immediately.
 
 ## Logo placement
+
 Upload the supplied `ac Studio Logo.png` under **Store Admin → Store Settings → Logo**. The recommended placement is the **top-left of the customer header**, aligned with the navigation/search area. The logo field is replaceable later without template changes.
 
 ## Customer contact messages
+
 The home page ends with a Contact Us / Talk to Us form. Admin can see customer name, email, message, timestamp, and read status. There is intentionally no admin reply function.
 
 ## Application architecture
