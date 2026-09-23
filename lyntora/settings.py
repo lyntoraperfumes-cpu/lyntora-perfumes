@@ -88,7 +88,7 @@ if not EMAIL_HOST:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 ADMIN_EMAIL = "lyntoraperfumes@gmail.com"
-WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "8089500239").strip()
+WHATSAPP_NUMBER = os.getenv("WHATSAPP_NUMBER", "8592967239").strip()
 STORE_EMAIL = os.getenv("STORE_EMAIL", ADMIN_EMAIL).strip()
 
 LOGIN_URL = "/login/"
