@@ -27,7 +27,7 @@
         <!-- Recommended brand-logo placement: top-left of the customer header. Upload "ac Studio Logo.png" in Store Admin → Store Settings. -->
         <a class="brand" href="{% url 'customer:home' %}">
           {% if store.logo %}
-          <img src="{{ store.logo.url }}" alt="{{ store.store_name }}" />
+          <img src="{% static 'images/web.jpg' %}" alt="{{ store.store_name }}" />
           {% else %}
           <span class="brand-mark">L</span>
           <span><b>{{ store.store_name }}</b><small>PERFUMES</small></span>
